@@ -137,9 +137,7 @@ namespace NuGet.Configuration
                 return Node;
             }
 
-            var element = new XElement(Name);
-            XElementUtility.AddIndented(element, Username.AsXNode());
-            XElementUtility.AddIndented(element, Password.AsXNode());
+            var element = new XElement(Name, Username.AsXNode(), Password.AsXNode());
 
             foreach (var attr in Attributes)
             {
