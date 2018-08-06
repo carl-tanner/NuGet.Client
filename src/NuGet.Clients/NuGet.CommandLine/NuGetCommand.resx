@@ -5476,4 +5476,7 @@ This option should be used when specifying the certificate via -CertificateSubje
   <data name="CommandNoServiceEndpointDescription" xml:space="preserve">
     <value>Does not append "api/v2/packages" to the source URL.</value>
   </data>
+  <data name="PackageCommandSymbolPackageFormat" xml:space="preserve">
+    <value>If creating a symbols package, allows to choose between the 'snupkg' and 'symbols.nupkg' format.</value>
+  </data>
 </root>
