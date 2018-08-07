@@ -157,7 +157,8 @@ namespace NuGet.Commands
 
                 var nuGetlockFilePath = NuGetLockFileUtilities.GetNuGetLockFilePath(_request.Project);
                 NuGetLockFile nuGetLockFile = null;
-                var restorePackagesWithLockFile = _request.Project.RestoreMetadata.RestorePackagesWithLockFile;
+
+                var restorePackagesWithLockFile = _request.Project.RestoreMetadata?.RestorePackagesWithLockFile;
 
                 if (!MSBuildStringUtility.IsTrueOrEmpty(restorePackagesWithLockFile) && File.Exists(nuGetlockFilePath))
                 {

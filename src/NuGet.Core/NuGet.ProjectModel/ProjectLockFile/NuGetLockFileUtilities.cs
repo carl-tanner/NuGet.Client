@@ -14,12 +14,18 @@ namespace NuGet.ProjectModel
     {
         public static bool IsNuGetLockFileSupported(PackageSpec project)
         {
-            var restorePackagesWithLockFile = project.RestoreMetadata.RestorePackagesWithLockFile;
+            var restorePackagesWithLockFile = project.RestoreMetadata?.RestorePackagesWithLockFile;
             return MSBuildStringUtility.IsTrue(restorePackagesWithLockFile) || File.Exists(GetNuGetLockFilePath(project));
         }
 
         public static string GetNuGetLockFilePath(PackageSpec project)
         {
+            if (project.RestoreMetadata == null || project.BaseDirectory == null)
+            {
+                // RestoreMetadata or project BaseDirectory is not set which means it's probably called through test.
+                return null;
+            }
+
             var path = project.RestoreMetadata.NuGetLockFilePath;
 
             if (string.IsNullOrEmpty(path))
