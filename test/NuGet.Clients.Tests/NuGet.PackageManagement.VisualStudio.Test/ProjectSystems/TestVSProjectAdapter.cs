@@ -18,15 +18,21 @@ namespace NuGet.PackageManagement.VisualStudio.Test
     public class TestVSProjectAdapter : IVsProjectAdapter
     {
         private readonly string _targetFrameworkString;
+        private readonly string _restorePackagesWithLockFile;
+        private readonly string _nuGetLockFilePath;
 
         public TestVSProjectAdapter(
             string fullProjectPath,
             ProjectNames projectNames,
-            string targetFrameworkString)
+            string targetFrameworkString,
+            string restorePackagesWithLockFile = null,
+            string nuGetLockFilePath = null)
         {
             FullProjectPath = fullProjectPath;
             ProjectNames = projectNames;
             _targetFrameworkString = targetFrameworkString;
+            _restorePackagesWithLockFile = restorePackagesWithLockFile;
+            _nuGetLockFilePath = nuGetLockFilePath;
         }
 
         public string AssetTargetFallback
@@ -168,7 +174,7 @@ namespace NuGet.PackageManagement.VisualStudio.Test
             return Task.FromResult(new FrameworkName(_targetFrameworkString));
         }
 
-        public Task<string> GetNuGetLockFilePathAsync() => Task.FromResult<string>(null);
+        public Task<string> GetNuGetLockFilePathAsync() => Task.FromResult<string>(_nuGetLockFilePath);
 
         public Task<string[]> GetProjectTypeGuidsAsync()
         {
@@ -182,7 +188,7 @@ namespace NuGet.PackageManagement.VisualStudio.Test
 
         public Task<string> GetRestorePackagesWithLockFileAsync()
         {
-            return Task.FromResult<string>(null);
+            return Task.FromResult<string>(_restorePackagesWithLockFile);
         }
 
         public Task<IEnumerable<RuntimeDescription>> GetRuntimeIdentifiersAsync()
